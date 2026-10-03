@@ -18,6 +18,7 @@ class User:
             print("Amount can't be less than #1.")
             return
 
+
         if amount > self.balance:
             print("Insufficient funds")
             return
