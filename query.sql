@@ -258,3 +258,4 @@ INSERT INTO product_category (product_id, category_id) VALUES
 (83, 5), (83, 2),
 (84, 5),
 (85, 5), (85, 2);
+
