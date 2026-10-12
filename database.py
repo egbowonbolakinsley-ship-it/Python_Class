@@ -18,11 +18,11 @@
 
 
 
-
 # scripts -  is a file with executable code
 # module - is a scripts that contains variables, or functions or classes
 # library - is a collection of two or more modules
 # framework - use to streamline workflow in a domain e.g django, keras, scikit , bootstrap, laravel, angular
+
 
 
 
@@ -40,6 +40,29 @@ import time, random, pyttsx3
 # engine.runAndWait()
 
 
+
+# CRUD -> create, read, update and delete
+# Database -> Table (rows & Column) e.g SQI database - Student Table()
+    
+# Type of SQL Queries
+# 1. DDL - Data Definition Language e.g CREATE, ALTER, DROP, TRUNCATE
+# 2. DML - Data Manipulation Language e.g  INSERT, UPDATE, DELETE 
+# 3. DQL - Data Query Language e.g SELECT
+
+#  Table Relationships
+# 1. One to One relationship e.g user and profile table
+# 2. One to many e.g user and product table
+# 3. many to many e.g order table, user table, product table
+
+"""
+ECOMMERCE APP
+
+product management - one to many / many to many  between product and product category 
+user management
+order management
+
+"""
+
 import mysql.connector as sql
 
 conn = sql.connect(
@@ -47,16 +70,18 @@ conn = sql.connect(
     user = "root",
     password = "password",
     port = "3306",
-    database = "aug26_db"
+    database = "aug26_db"   #input this after creating the database
 )
 
-cursor = conn.cursor()
+mycursor = conn.cursor()
 conn.autocommit = True
 
-
+# query = 'SHOW DATABASES'
+# print(list(mycursor))
 # DDL - Data Definition Language e.g CREATE, DROP, ALTER, TRUNCATE 
 # query = "DROP DATABASE aug26_db"
 # query = "CREATE DATABASE IF NOT EXISTS aug26_db"
+
 query = """
     CREATE TABLE customer(
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -152,7 +177,8 @@ def delete_account():
 # query = "SELECT fullname, email, account_no FROM customer WHERE address LIKE 'OYO%'" # startwith
 # query = "SELECT fullname, email, account_no FROM customer WHERE address LIKE '%Abuja%'" # endswith
 # query = "SELECT fullname, email, account_no FROM customer WHERE address LIKE '%Abuja%'" # startwith or endswith
-cursor.execute(query)
+
+mycursor.execute(query)
 users = cursor.fetchall()
 print(users)
 # for user in users:
@@ -185,3 +211,57 @@ def login():
 
 def deposit():
     pass
+
+
+
+ DML
+
+# query = "INSERT INTO customer_table(fullname, email, password, account_no) VALUES('Arise Damilare', 'dami@gmail.com', '1234', '1234567890')"
+# query = "INSERT INTO customer_table(fullname, email, password, account_no) VALUES(%s, %s, %s, %s)"
+# values = ('Raji Raji', 'raji@gmail.com', '1234', '0987654321')
+# mycursor.execute(query, values)
+
+
+# query = "UPDATE customer_table SET fullname = %s WHERE id= %s" 
+# values = ('Raji Abdulmalik', 2)
+# mycursor.execute(query, values)
+
+# query = "DELETE FROM customer_table WHERE id = 1"
+# mycursor.execute(query)
+
+# DQL
+
+# query = 'SELECT * FROM customer_table'
+# mycursor.execute(query)
+# details = mycursor.fetchall()
+# print(details)
+
+# query = 'SELECT * FROM customer_table WHERE id=2'
+# mycursor.execute(query)
+# detail = mycursor.fetchone()
+# print(detail[2], detail[3], detail[5])
+
+# query = "SELECT fullname, email, account_no, account_balance  FROM customer_table WHERE id = 2"
+# mycursor.execute(query)
+# detail = mycursor.fetchone()
+# print(detail)
+
+# query = "SELECT fullname, email, account_no, account_balance  FROM customer_table WHERE email = %s AND password = %s"
+# email = input('Email: ')
+# password = input('Password: ')
+# values = (email, password)
+# mycursor.execute(query, values)
+# detail = mycursor.fetchone()
+# if detail:
+#     print('Login successful')
+# else:
+#     print('Invalid email and password')
+
+# %r => endswith r 
+# r% => startwith r
+# %r% => contains r
+
+# query = "SELECT fullname, email FROM customer_table WHERE fullname LIKE '%abdul%'"
+# mycursor.execute(query)
+# details = mycursor.fetchall()
+# print(details)
